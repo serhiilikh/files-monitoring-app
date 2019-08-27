@@ -34,7 +34,7 @@ Here is the example of rule for handler
 - item_type - defines type of the item, options are:
     - file format, usage: ".jpg", ".png", ".txt"
     - folder, usage: "folder"
-    - linkj, usage: "link"
+    - link, usage: "link"
 
 - handler - path to python handler script
 
