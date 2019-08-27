@@ -1,5 +1,4 @@
-# working directory
-filepath = 'd:/test/'
+workdir = 'd:/test/'
 rescan_interval = 2
 notify_interval = 10
 
