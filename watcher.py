@@ -44,11 +44,13 @@ class Watcher(Thread):
         return True
 
     def _rescan(self):
+        new_tracker = {}
         for r, d, f in os.walk(self.filepath):
             for item in f+d:
                 path = r + "/" + item if not r.endswith("/") else r + item
                 try:
                     mtime = os.path.getmtime(path)
+                    new_tracker[path] = mtime
                     if path not in self.tracker or self.tracker[path] < mtime:
                         print("item added or changed! - {}".format(path))
                         handlers_for_job = []
@@ -69,6 +71,7 @@ class Watcher(Thread):
                             if item and path:
                                 result_info, new_path = handler["handler_instance"].do_job(path, item,
                                                                                            handler["parameters"])
+                                print(result_info)
                                 # if file is removed entirely
                                 if new_path is False and path in self.tracker:
                                     del self.tracker[path]
@@ -77,6 +80,8 @@ class Watcher(Thread):
                                     del self.tracker[path]
                                 self.tracker[new_path] = os.path.getmtime(new_path)
                                 # this list of messages is also used in notifier
-                                self.messages += result_info
+                    else:
+                        pass
                 except OSError:
                     continue
+        self.tracker = new_tracker
