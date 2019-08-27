@@ -1,10 +1,11 @@
+# working directory
 filepath = 'd:/test/'
-rescan_interval = 5
+rescan_interval = 2
 notify_interval = 10
 
 rules = [
     {
-        "active": False,
+        "active": True,
         "item_type": ".txt",
         "handler": "handlers/rename_add_timestamp"
     },

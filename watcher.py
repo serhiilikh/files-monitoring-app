@@ -25,9 +25,12 @@ class Watcher(Thread):
         scan_succesfull = False
         while not scan_succesfull:
             scan_succesfull = self._do_first_scan()
+        next_call = time.time()
         while True:
             self._rescan()
-            time.sleep(time_to_check_updates)
+            # proper sleep, will count how much rescan takes
+            next_call = next_call + time_to_check_updates
+            time.sleep(next_call - time.time())
 
     def _do_first_scan(self):
         try:
